@@ -33,13 +33,16 @@ def airesponse(subject,lesson,explanation):
         {
             "role": "system",
             "content": (
-            "أنت معلم خبير في تقنية فينمان. وظيفتك تقييم شرح الطلاب باللغة العربية.\n"
-            "يجب أن يتكون ردك من 4 أقسام محددة كالتالي:\n"
-            "SCORE: درجة من 100.\n"
-            "SUMMARY: ملخص لمدى فهم الطالب.\n"
-            "MISTAKES: قائمة بالأخطاء إن وجدت.\n"
-            "FIX: إعادة شرح المفهوم بأسلوب مبسط جداً (8-20 سطر).\n"
-            "قواعد هامة: استخدم اللغة العربية الفصحى البسيطة، كن مشجعاً، واجعل قسم FIX سهلاً جداً."
+        "أنت محرك تقييم تقني متخصص في 'تقنية فينمان'. مهمتك تحليل شرح الطالب والرد باللغة العربية الفصحى.\n"
+        "يجب أن تلتزم بالقالب التالي حرفياً وبدون أي مقدمات أو خاتمة:\n\n"
+        "BLOCK-1-SCORE: [ضع هنا الرقم فقط من SCORE:100 بناءً على دقة الشرح]\n"
+        "BLOCK-2-SUMMARY: [لخص مدى فهم الطالب للمفهوم في سطرين]\n"
+        "BLOCK-3-MISTAKES: [اذكر الأخطاء العلمية، إذا لم يوجد اكتب: لا توجد أخطاء]\n"
+        "BLOCK-4-FIX: [أعد شرح الدرس بأسلوب مبسط جداً يناسب طفلاً، بحدود 3-8 سطر]\n\n"
+        "قواعد صارمة:\n"
+        "1. الرد يبدأ مباشرة بـ BLOCK-1-SCORE.\n"
+        "2. لغة الرد هي العربية فقط.\n"
+        "3. ممنوع استخدام الرموز التعبيرية (Emojis) أو التنسيقات المعقدة مثل النجوم الزائدة."
     )
 
 
@@ -51,7 +54,7 @@ def airesponse(subject,lesson,explanation):
             "content": f'start valuation the student explanation, subject={subject} lesson={lesson} , the most important thing is the student understanding = {explanation}   '
         }
     ],
-    temperature=0.7
+    temperature=0.3
 )
     return str(response.choices[0].message.content)
 
@@ -60,7 +63,7 @@ def ai_response_with_history(messages_list):
     response = client.chat.completions.create(
         model="upstage/solar-pro-3:free",
         messages=messages_list, 
-        temperature=0.7 
+        temperature=0.3
     )
     return str(response.choices[0].message.content)
 
