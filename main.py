@@ -1,4 +1,4 @@
-from fynmanAi.models import User,Conversation,Message,airesponse,ai_response_with_history
+from models import User,Conversation,Message,airesponse,ai_response_with_history
 from security import get_password_hash, verify_password
 from fastapi import FastAPI ,Request , Form ,Depends
 from sqlmodel import SQLModel, Field, create_engine, Session, select
