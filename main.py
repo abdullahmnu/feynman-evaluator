@@ -4,11 +4,13 @@ from fastapi import FastAPI ,Request , Form ,Depends
 from sqlmodel import SQLModel, Field, create_engine, Session, select
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import RedirectResponse
+from fastapi.staticfiles import StaticFiles
 from starlette.middleware.sessions import SessionMiddleware     
 import os
 from dotenv import load_dotenv
 load_dotenv()
 app = FastAPI()
+app.mount("/static", StaticFiles(directory="static"), name="static")
 SECRET_KEY = os.getenv("SECRET_KEY")
 templates= Jinja2Templates(directory='templates')
 engine = create_engine("sqlite:///database.db", echo=True) 
@@ -54,6 +56,13 @@ async def main(request: Request, db: Session = Depends(get_db)):
         "total_ai_msgs": total_ai_msgs
     })
 
+@app.get("/tos")
+async def tos(request: Request):
+    return templates.TemplateResponse("tos.html", {"request": request})
+
+@app.get("/privacy")
+async def privacy(request: Request):
+    return templates.TemplateResponse("privacy.html", {"request": request})
 
 @app.api_route("/register", methods=["GET", "POST"])
 async def reg_data(request:Request,

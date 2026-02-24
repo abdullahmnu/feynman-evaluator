@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>سياسة الخصوصية — Feynman Evaluator</title>
+    <meta name="description" content="سياسة الخصوصية لمنصة Feynman Evaluator" />
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        :root {
+            --teal: #87B6BC;
+            --mint: #BED4CB;
+            --yellow: #F6F09F;
+            --red: #B35656;
+            --teal-dark: #5a9298;
+            --bg: #f7faf9;
+            --surface: #ffffff;
+            --surface2: #f0f6f5;
+            --text: #1a2e2c;
+            --text-muted: #5a7270;
+            --border: #d4e6e2;
+            --shadow-md: 0 8px 32px rgba(135, 182, 188, .18);
+            --radius-md: 20px;
+            --font: 'Cairo', 'Inter', sans-serif;
+        }
+
+        [data-theme="dark"] {
+            --bg: #0f1a19;
+            --surface: #1a2e2c;
+            --surface2: #1f3533;
+            --text: #e8f4f2;
+            --text-muted: #8ab5b1;
+            --border: #2d4a47;
+            --shadow-md: 0 8px 32px rgba(0, 0, 0, .35);
+        }
+
+        html {
+            scroll-behavior: smooth
+        }
+
+        body {
+            font-family: var(--font);
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            transition: background .3s, color .3s
+        }
+
+        /* Navbar */
+        nav {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 5%;
+            background: rgba(247, 250, 249, .85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+            transition: background .3s
+        }
+
+        [data-theme="dark"] nav {
+            background: rgba(15, 26, 25, .9)
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: .6rem;
+            text-decoration: none
+        }
+
+        .nav-logo-img {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            object-fit: contain;
+            background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+            padding: 3px;
+            box-shadow: 0 4px 12px rgba(135, 182, 188, .35)
+        }
+
+        .nav-logo-text {
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: var(--text)
+        }
+
+        .nav-logo-text span {
+            color: var(--teal-dark)
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: .6rem
+        }
+
+        .nav-meta-btn {
+            height: 34px;
+            padding: 0 .75rem;
+            border: 1px solid var(--border);
+            background: var(--surface2);
+            border-radius: 9px;
+            font-family: var(--font);
+            font-size: .8rem;
+            font-weight: 700;
+            color: var(--text);
+            cursor: pointer;
+            transition: all .2s;
+            display: flex;
+            align-items: center
+        }
+
+        .nav-meta-btn:hover {
+            background: var(--teal);
+            color: white;
+            border-color: var(--teal)
+        }
+
+        .nav-back-link {
+            font-size: .85rem;
+            color: var(--teal-dark);
+            font-weight: 700;
+            text-decoration: none;
+            padding: .4rem .8rem;
+            border-radius: 8px;
+            transition: background .2s
+        }
+
+        .nav-back-link:hover {
+            background: rgba(135, 182, 188, .1)
+        }
+
+        /* Page Content */
+        main {
+            flex: 1;
+            padding: 3rem 5%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .content-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 2.5rem 3rem;
+            max-width: 800px;
+            width: 100%;
+            box-shadow: var(--shadow-md);
+            transition: background .3s, border-color .3s;
+        }
+
+        .page-title {
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--teal-dark);
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .text-block {
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .text-block h3 {
+            font-size: 1.2rem;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .text-block h3::before {
+            content: '📌';
+            font-size: 1.1rem;
+        }
+
+        .text-block p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-right: 1.8rem;
+        }
+
+        /* Footer */
+        footer {
+            padding: 2rem 5%;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            background: var(--surface2);
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        @media(max-width:768px) {
+            .content-card {
+                padding: 1.5rem;
+            }
+
+            .page-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <a href="/" class="nav-logo" aria-label="Feynman Evaluator">
+            <img src="/static/favicon.ico" class="nav-logo-img" alt="Feynman Evaluator" />
+            <span class="nav-logo-text">Feynman <span>Evaluator</span></span>
+        </a>
+        <div class="nav-right">
+            <button class="nav-meta-btn" id="themeBtn" onclick="toggleTheme()" aria-label="toggle theme">🌙</button>
+            <a href="/" class="nav-back-link">العودة للرئيسية</a>
+        </div>
+    </nav>
+    <main>
+        <div class="content-card">
+            <h1 class="page-title">سياسة الخصوصية</h1>
+
+            <div class="text-block">
+                <h3>حماية البيانات</h3>
+                <p>نحن نستخدم تقنيات التشفير (Hashing) لحماية كلمات المرور الخاصة بك. لا يمكن لأحد (حتى المطور) رؤية
+                    كلمة مرورك الحقيقية.</p>
+            </div>
+
+            <div class="text-block">
+                <h3>بيانات المحادثات</h3>
+                <p>يتم تخزين شروحاتك وردود الذكاء الاصطناعي لتحسين تجربتك التعليمية والسماح لك بالرجوع إليها لاحقاً.</p>
+            </div>
+
+            <div class="text-block">
+                <h3>الطرف الثالث (AI)</h3>
+                <p>يتم إرسال نصوص الشروحات لنموذج الذكاء الاصطناعي (عبر OpenRouter) لمعالجتها وتقييمها، ولا يتم إرسال أي
+                    بيانات شخصية (مثل الاسم أو كلمة المرور) معه.</p>
+            </div>
+
+            <div class="text-block">
+                <h3>حقوق المستخدم</h3>
+                <p>يمكنك طلب حذف حسابك أو بياناتك في أي وقت بالتواصل مع الإدارة.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Feynman Evaluator. All rights reserved. </p>
+    </footer>
+
+    <script>
+        let theme = localStorage.getItem('fynTheme') || 'light';
+        function applyTheme(t) {
+            theme = t; localStorage.setItem('fynTheme', t);
+            document.documentElement.setAttribute('data-theme', t);
+            document.getElementById('themeBtn').textContent = t === 'dark' ? '☀️' : '🌙';
+        }
+        function toggleTheme() { applyTheme(theme === 'dark' ? 'light' : 'dark'); }
+        applyTheme(theme);
+    </script>
+</body>
+
+</html>

@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{% if username %}لوحة التحكم — فاينمان AI{% else %}فاينمان AI — افهم ولا تحفظ{% endif %}</title>
+    <title>{% if username %}لوحة التحكم — Feynman Evaluator{% else %}Feynman Evaluator — افهم ولا تحفظ{% endif %}
+    </title>
     <link rel="icon" href="/static/favicon.ico" type="image/x-icon" />
     <meta name="description"
         content="منصة تعليمية تعتمد على تقنية فاينمان الثورية حيث يشرح الطالب الدرس بأسلوبه ويحلل الذكاء الاصطناعي فهمه بدقة عالية." />
@@ -115,24 +116,24 @@
         .nav-logo {
             display: flex;
             align-items: center;
-            gap: .6rem;
+            gap: .8rem;
             text-decoration: none;
         }
 
         .nav-logo-icon {
-            width: 40px;
-            height: 40px;
+            width: 60px;
+            height: 60px;
             background: linear-gradient(135deg, var(--teal), var(--teal-dark));
             border-radius: var(--radius-sm);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
+            font-size: 1.5rem;
             box-shadow: 0 4px 14px rgba(135, 182, 188, .4);
         }
 
         .nav-logo-text {
-            font-size: 1.25rem;
+            font-size: 1.5rem;
             font-weight: 800;
             color: var(--text);
             letter-spacing: -.3px;
@@ -1232,8 +1233,21 @@
                 display: none;
             }
 
+            .nav-cta {
+                display: none;
+            }
+
             .hamburger {
                 display: flex;
+            }
+
+            .nav-logo-img {
+                width: 42px !important;
+                height: 42px !important;
+            }
+
+            .nav-logo-text {
+                font-size: 1.15rem !important;
             }
         }
 
@@ -1306,6 +1320,19 @@
 
         .mobile-nav.open {
             display: flex;
+        }
+
+        .mobile-nav-cta {
+            display: flex;
+            gap: 0.8rem;
+            padding: 0.5rem 0;
+            margin-top: 0.5rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .mobile-nav-cta .nav-meta-btn {
+            flex: 1;
+            justify-content: center;
         }
 
         .mobile-nav a {
@@ -1461,7 +1488,10 @@
             flex-shrink: 0;
         }
 
-        .dash-stat-info {}
+        .dash-stat-info {
+            display: flex;
+            flex-direction: column;
+        }
 
         .dash-stat-val {
             font-size: 1.5rem;
@@ -1606,7 +1636,9 @@
         }
 
         /* Recent conversations */
-        .recent-section {}
+        .recent-section {
+            margin-top: 1rem;
+        }
 
         .recent-header {
             display: flex;
@@ -1755,12 +1787,12 @@
         }
 
         .nav-logo-img {
-            width: 40px;
-            height: 40px;
+            width: 55px;
+            height: 55px;
             border-radius: var(--radius-sm);
             object-fit: contain;
             background: linear-gradient(135deg, var(--teal), var(--teal-dark));
-            padding: 4px;
+            padding: 5px;
             box-shadow: 0 4px 14px rgba(135, 182, 188, .4);
             flex-shrink: 0;
         }
@@ -1771,9 +1803,9 @@
 
     <!-- ===== NAV ===== -->
     <nav id="navbar">
-        <a href="/" class="nav-logo" aria-label="فاينمان AI">
-            <img src="/static/favicon.ico" class="nav-logo-img" alt="Feynman AI" />
-            <span class="nav-logo-text">فاينمان <span>AI</span></span>
+        <a href="/" class="nav-logo" aria-label="Feynman Evaluator">
+            <img src="/static/favicon.ico" class="nav-logo-img" alt="Feynman Evaluator" />
+            <span class="nav-logo-text">Feynman <span>Evaluator</span></span>
         </a>
 
         {% if username %}
@@ -1781,9 +1813,8 @@
         <ul class="nav-links">
             <li><a href="#new-chat">محادثة جديدة</a></li>
         </ul>
-        <div style="display:flex;align-items:center;gap:.6rem;">
+        <div class="nav-cta" style="display:flex;align-items:center;gap:.6rem;">
             <button class="nav-meta-btn" id="themeBtn" onclick="toggleTheme()" aria-label="toggle theme">🌙</button>
-            <button class="nav-meta-btn" id="langBtn" onclick="toggleLang()" aria-label="switch language">EN</button>
             <div class="dash-nav-user">
                 <div class="user-chip">
                     <div class="user-avatar-sm">{{ username[0] | upper }}</div>
@@ -1802,7 +1833,6 @@
         </ul>
         <div class="nav-cta">
             <button class="nav-meta-btn" id="themeBtn" onclick="toggleTheme()" aria-label="toggle theme">🌙</button>
-            <button class="nav-meta-btn" id="langBtn" onclick="toggleLang()" aria-label="switch language">EN</button>
             <a href="/login" class="btn-ghost" id="nav-login-btn">تسجيل الدخول</a>
             <a href="/register" class="btn-primary" id="nav-register-btn">سجّل الآن ✦</a>
         </div>
@@ -1815,6 +1845,9 @@
 
     <!-- Mobile Nav -->
     <div class="mobile-nav" id="mobileNav">
+        <div class="mobile-nav-cta">
+            <button class="nav-meta-btn" id="themeBtnMob" onclick="toggleTheme()" aria-label="toggle theme">🌙</button>
+        </div>
         {% if username %}
         <a href="#new-chat">محادثة جديدة</a>
         <a href="/logout" style="color:var(--red);font-weight:700;">تسجيل الخروج 🚪</a>
@@ -2339,49 +2372,92 @@
         </div>
     </section>
 
-    <!-- ===== FOOTER ===== -->
+    <style>
+        .footer-social-icon {
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: var(--surface2);
+            color: var(--text);
+            transition: all 0.3s;
+        }
+
+        .footer-social-icon:hover {
+            background: var(--teal);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom-links a:hover {
+            color: var(--teal-dark) !important;
+        }
+
+        @media(max-width: 768px) {
+            .footer-bottom-bar {
+                flex-direction: column;
+                align-items: flex-start !important;
+                gap: 1rem;
+            }
+        }
+    </style>
     <footer>
-        <div class="footer-inner">
-            <a href="#" class="footer-logo">
+        <div class="footer-inner"
+            style="display: flex; flex-direction: column; align-items: flex-start; text-align: right; max-width: 1200px; margin: 0 auto; padding-top: 4rem; padding-bottom: 2rem;">
+            <a href="#" class="footer-logo" style="justify-content: flex-start; margin-bottom: 1.5rem;">
                 <img src="/static/favicon.ico"
-                    style="width:32px;height:32px;border-radius:8px;object-fit:contain;background:linear-gradient(135deg,var(--teal),var(--teal-dark));padding:3px;"
-                    alt="Feynman AI" />
-                <span class="footer-logo-text">فاينمان AI</span>
+                    style="width:45px;height:45px;border-radius:10px;object-fit:contain;background:linear-gradient(135deg,var(--teal),var(--teal-dark));padding:4px;"
+                    alt="Evaluator" />
+                <span class="footer-logo-text" style="font-size: 1.5rem;">Feynman <span>Evaluator</span></span>
             </a>
-            <p class="footer-copy">
-                © 2025 فاينمان AI. منصة تعليمية مبنية بالذكاء الاصطناعي لتعميق الفهم.
+
+            <p class="footer-copy"
+                style="margin-bottom: 2rem; text-align: right; max-width: 600px; font-size: 1.05rem; color: var(--text-muted); line-height: 1.7;">
+                منصة تعليمية ذكية مبنية على تقنية فينمان تساعدك على تعميق فهمك، وتوفر لك تقييماً دقيقاً لشروحاتك عبر
+                الذكاء الاصطناعي مجاناً.
             </p>
+
+            <div style="display: flex; gap: 1rem; justify-content: flex-start; margin-bottom: 2.5rem;">
+                <a href="https://github.com/abdullahmnu/feynman-evaluator" target="_blank" aria-label="GitHub"
+                    class="footer-social-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"
+                        fill="currentColor">
+                        <path
+                            d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.332-5.467-5.93 0-1.31.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                    </svg>
+                </a>
+            </div>
+
+            <div class="footer-bottom-bar"
+                style="width: 100%; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+                <div class="footer-bottom-links" style="display: flex; gap: 1.5rem; font-size: 0.9rem;">
+                    <a href="/tos"
+                        style="color: var(--text-muted); text-decoration: none; font-weight: 600; transition: color 0.3s;">شروط
+                        الاستخدام</a>
+                    <a href="/privacy"
+                        style="color: var(--text-muted); text-decoration: none; font-weight: 600; transition: color 0.3s;">سياسة
+                        الخصوصية</a>
+                </div>
+                <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0; direction: ltr; font-weight: 500;">
+                    &copy; 2026 Feynman Evaluator. All rights reserved.
+                </p>
+            </div>
         </div>
     </footer>
     {% endif %}
 
     <script>
-        /* ===== i18n + Dark Mode ===== */
-        const TMain = {
-            ar: { navLogin: 'تسجيل الدخول', navRegister: 'سجّل الآن ✶', logout: 'خروج 🚦', navNewChat: 'محادثة جديدة' },
-            en: { navLogin: 'Sign In', navRegister: 'Register Now ✶', logout: 'Logout 🚦', navNewChat: 'New Chat' }
-        };
-        let fynLang = localStorage.getItem('fynLang') || 'ar';
+        /* ===== Dark Mode ===== */
         let fynTheme = localStorage.getItem('fynTheme') || 'light';
-        function applyLang(l) {
-            fynLang = l; localStorage.setItem('fynLang', l);
-            const isAr = l === 'ar';
-            document.documentElement.lang = l;
-            document.documentElement.dir = isAr ? 'rtl' : 'ltr';
-            const lb = document.getElementById('langBtn'); if (lb) lb.textContent = isAr ? 'EN' : 'عر';
-            const nl = document.getElementById('nav-login-btn'); if (nl) nl.textContent = TMain[l].navLogin;
-            const nr = document.getElementById('nav-register-btn'); if (nr) nr.textContent = TMain[l].navRegister;
-            const ml = document.getElementById('mobile-login'); if (ml) ml.textContent = TMain[l].navLogin;
-            const mr = document.getElementById('mobile-register'); if (mr) mr.textContent = TMain[l].navRegister;
-        }
         function applyTheme(t) {
             fynTheme = t; localStorage.setItem('fynTheme', t);
             document.documentElement.setAttribute('data-theme', t);
             const tb = document.getElementById('themeBtn'); if (tb) tb.textContent = t === 'dark' ? '☀️' : '🌙';
+            const tbm = document.getElementById('themeBtnMob'); if (tbm) tbm.textContent = t === 'dark' ? '☀️' : '🌙';
         }
-        function toggleLang() { applyLang(fynLang === 'ar' ? 'en' : 'ar'); }
         function toggleTheme() { applyTheme(fynTheme === 'dark' ? 'light' : 'dark'); }
-        applyLang(fynLang);
         applyTheme(fynTheme);
 
         // === Navbar scroll effect ===

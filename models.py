@@ -11,6 +11,10 @@ from dotenv import load_dotenv
 load_dotenv()
 
 API_KEY = os.getenv("API_KEY")
+
+if not API_KEY:
+    raise ValueError("لم يتم العثور على API_KEY! تأكد من ملف .env")
+
 file = 'data.csv'
 header = ['subject', 'lesson', 'concept']
 
