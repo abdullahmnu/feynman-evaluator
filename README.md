@@ -19,16 +19,19 @@
 
 ## 🛠️ التقنيات المستخدمة (Tech Stack)
 - **Backend:** [Python](https://www.python.org/) مع إطار عمل [FastAPI](https://fastapi.tiangolo.com/).
-- **Database:** [SQLModel](https://sqlmodel.tiangolo.com/) مع [SQLite] لإدارة البيانات والعلاقات.
+- **Database:** PostgreSQL (Managed by Render) لإدارة البيانات والعلاقات.
 - **AI Engine:** استخدام نموذج [Upstage Solar] عبر منصة [OpenRouter].
+- **Authentication:** Session-based using SHA-256 Hashing
 - **Frontend:** واجهة مستخدم تم بناؤها باستخدام HTML/CSS/JS (تم الاستعانة بالذكاء الاصطناعي في التصميم وتنسيق الواجهات).
 
+
+## "كيف يعمل النظام؟" (How it Works)
+"يعتمد النظام على تحويل تاريخ المحادثة إلى ذاكرة تفاعلية تُرسل للذكاء الاصطناعي في كل رد، مما يسمح بنقاش تعليمي مستمر وليس مجرد ردود منفصلة."
 ## 📥 طريقة التشغيل (Installation)
    ```bash
 1. قم بتحميل المشروع (Clone):
 
    git clone [https://github.com/abdullahmnu/feynman-evaluator.git](https://github.com/abdullahmnu/feynman-evaluator.git)
-
     قم بتثبيت المكتبات اللازمة:
 
 
@@ -45,6 +48,7 @@
     شغل السيرفر:
 
    uvicorn main:app --reload
+```
 
 📝 ملاحظات 
 
