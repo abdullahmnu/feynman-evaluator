@@ -22,6 +22,7 @@ else:
         DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
 
 engine = create_engine(DATABASE_URL)
+SQLModel.metadata.create_all(engine)
 app.add_middleware(
     SessionMiddleware,
     secret_key=SECRET_KEY,
