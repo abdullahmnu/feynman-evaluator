@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>إنشاء حساب — فاينمان AI</title>
+    <meta name="description" content="أنشئ حسابك في فاينمان AI وابدأ رحلة التعلم العميق مجاناً." />
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        :root {
+            --teal: #87B6BC;
+            --mint: #BED4CB;
+            --yellow: #F6F09F;
+            --red: #B35656;
+            --teal-dark: #5a9298;
+            --bg: #f7faf9;
+            --surface: #ffffff;
+            --surface2: #f0f6f5;
+            --text: #1a2e2c;
+            --text-muted: #5a7270;
+            --border: #d4e6e2;
+            --shadow-md: 0 8px 32px rgba(135, 182, 188, .18);
+            --shadow-lg: 0 20px 60px rgba(135, 182, 188, .22);
+            --radius-sm: 12px;
+            --radius-md: 20px;
+            --radius-lg: 32px;
+            --font: 'Cairo', 'Inter', sans-serif;
+        }
+
+        [data-theme="dark"] {
+            --bg: #0f1a19;
+            --surface: #1a2e2c;
+            --surface2: #1f3533;
+            --text: #e8f4f2;
+            --text-muted: #8ab5b1;
+            --border: #2d4a47;
+            --shadow-md: 0 8px 32px rgba(0, 0, 0, .35);
+            --shadow-lg: 0 20px 60px rgba(0, 0, 0, .45);
+        }
+
+        html {
+            scroll-behavior: smooth
+        }
+
+        body {
+            font-family: var(--font);
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            transition: background .3s, color .3s
+        }
+
+        .page-bg {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none
+        }
+
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: .25
+        }
+
+        .blob-1 {
+            width: 480px;
+            height: 480px;
+            background: var(--mint);
+            top: -120px;
+            left: -100px
+        }
+
+        .blob-2 {
+            width: 400px;
+            height: 400px;
+            background: var(--yellow);
+            bottom: -80px;
+            right: -80px
+        }
+
+        .blob-3 {
+            width: 300px;
+            height: 300px;
+            background: var(--teal);
+            top: 45%;
+            right: 30%
+        }
+
+        nav {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 5%;
+            background: rgba(247, 250, 249, .85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+            transition: background .3s
+        }
+
+        [data-theme="dark"] nav {
+            background: rgba(15, 26, 25, .9)
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: .6rem;
+            text-decoration: none
+        }
+
+        .nav-logo-img {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            object-fit: contain;
+            background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+            padding: 3px;
+            box-shadow: 0 4px 12px rgba(135, 182, 188, .35)
+        }
+
+        .nav-logo-text {
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: var(--text)
+        }
+
+        .nav-logo-text span {
+            color: var(--teal-dark)
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: .6rem
+        }
+
+        .nav-meta-btn {
+            height: 34px;
+            padding: 0 .75rem;
+            border: 1px solid var(--border);
+            background: var(--surface2);
+            border-radius: 9px;
+            font-family: var(--font);
+            font-size: .8rem;
+            font-weight: 700;
+            color: var(--text);
+            cursor: pointer;
+            transition: all .2s;
+            display: flex;
+            align-items: center
+        }
+
+        .nav-meta-btn:hover {
+            background: var(--teal);
+            color: white;
+            border-color: var(--teal)
+        }
+
+        .nav-login-link {
+            font-size: .85rem;
+            color: var(--teal-dark);
+            font-weight: 700;
+            text-decoration: none;
+            padding: .4rem .8rem;
+            border-radius: 8px;
+            transition: background .2s
+        }
+
+        .nav-login-link:hover {
+            background: rgba(135, 182, 188, .1)
+        }
+
+        main {
+            flex: 1;
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 5%
+        }
+
+        .auth-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1.1fr;
+            gap: 3.5rem;
+            align-items: center;
+            max-width: 980px;
+            width: 100%
+        }
+
+        .auth-info {
+            padding: 1rem 0
+        }
+
+        .auth-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: .45rem;
+            background: rgba(190, 212, 203, .2);
+            border: 1px solid rgba(190, 212, 203, .5);
+            border-radius: 999px;
+            padding: .35rem .9rem;
+            font-size: .8rem;
+            font-weight: 700;
+            color: var(--teal-dark);
+            margin-bottom: 1.4rem
+        }
+
+        .badge-dot {
+            width: 7px;
+            height: 7px;
+            background: var(--mint);
+            border-radius: 50%;
+            animation: pulse 2s infinite
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1)
+            }
+
+            50% {
+                opacity: .4;
+                transform: scale(1.5)
+            }
+        }
+
+        .auth-info h1 {
+            font-size: clamp(1.8rem, 3vw, 2.4rem);
+            font-weight: 900;
+            line-height: 1.25;
+            margin-bottom: .8rem
+        }
+
+        .auth-info h1 span {
+            background: linear-gradient(135deg, var(--teal-dark), var(--teal));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text
+        }
+
+        .auth-info>p {
+            color: var(--text-muted);
+            font-size: .95rem;
+            line-height: 1.75;
+            margin-bottom: 1.8rem
+        }
+
+        .steps-mini {
+            display: flex;
+            flex-direction: column;
+            gap: .9rem
+        }
+
+        .step-mini {
+            display: flex;
+            align-items: center;
+            gap: .9rem;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: .8rem 1rem;
+            box-shadow: var(--shadow-md);
+            transition: transform .25s
+        }
+
+        .step-mini:hover {
+            transform: translateX(-4px)
+        }
+
+        [dir="ltr"] .step-mini:hover {
+            transform: translateX(4px)
+        }
+
+        .step-mini-num {
+            width: 32px;
+            height: 32px;
+            flex-shrink: 0;
+            background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 900;
+            font-size: .85rem
+        }
+
+        .step-mini-text {
+            font-size: .86rem;
+            color: var(--text-muted);
+            line-height: 1.4
+        }
+
+        .step-mini-text strong {
+            display: block;
+            color: var(--text);
+            font-weight: 700;
+            margin-bottom: .1rem
+        }
+
+        .auth-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 2.4rem;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+            transition: background .3s, border-color .3s
+        }
+
+        .auth-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--mint), var(--teal), var(--yellow))
+        }
+
+        .card-header {
+            margin-bottom: 1.8rem
+        }
+
+        .card-header h2 {
+            font-size: 1.4rem;
+            font-weight: 900;
+            margin-bottom: .3rem
+        }
+
+        .card-header p {
+            font-size: .87rem;
+            color: var(--text-muted)
+        }
+
+        .form-group {
+            margin-bottom: 1.1rem
+        }
+
+        .form-label {
+            display: block;
+            font-size: .85rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: .4rem
+        }
+
+        .input-wrap {
+            position: relative;
+            display: flex;
+            align-items: center
+        }
+
+        .input-icon {
+            position: absolute;
+            right: .9rem;
+            font-size: .95rem;
+            color: var(--text-muted);
+            pointer-events: none
+        }
+
+        [dir="ltr"] .input-icon {
+            right: auto;
+            left: .9rem
+        }
+
+        .form-input {
+            width: 100%;
+            padding: .75rem 2.6rem .75rem 1rem;
+            background: var(--surface2);
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-family: var(--font);
+            font-size: .9rem;
+            color: var(--text);
+            transition: all .25s;
+            outline: none
+        }
+
+        [dir="ltr"] .form-input {
+            padding: .75rem 1rem .75rem 2.6rem
+        }
+
+        .form-input:focus {
+            border-color: var(--teal);
+            background: var(--surface);
+            box-shadow: 0 0 0 3px rgba(135, 182, 188, .15)
+        }
+
+        .form-input::placeholder {
+            color: #9bbab8
+        }
+
+        .form-input.error {
+            border-color: var(--red)
+        }
+
+        .field-hint {
+            font-size: .76rem;
+            color: var(--text-muted);
+            margin-top: .3rem
+        }
+
+        .field-error {
+            font-size: .76rem;
+            color: var(--red);
+            margin-top: .3rem;
+            display: none
+        }
+
+        .field-error.show {
+            display: block
+        }
+
+        .input-toggle {
+            position: absolute;
+            left: .9rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-muted);
+            font-size: .85rem;
+            padding: 2px;
+            transition: color .2s
+        }
+
+        [dir="ltr"] .input-toggle {
+            left: auto;
+            right: .9rem
+        }
+
+        .input-toggle:hover {
+            color: var(--teal-dark)
+        }
+
+        .strength-wrap {
+            margin-top: .5rem
+        }
+
+        .strength-label {
+            font-size: .75rem;
+            color: var(--text-muted);
+            margin-bottom: .3rem;
+            display: flex;
+            justify-content: space-between
+        }
+
+        .strength-bars {
+            display: flex;
+            gap: 4px
+        }
+
+        .s-bar {
+            flex: 1;
+            height: 4px;
+            background: var(--border);
+            border-radius: 99px;
+            transition: background .3s
+        }
+
+        .s-bar.weak {
+            background: var(--red)
+        }
+
+        .s-bar.medium {
+            background: var(--yellow)
+        }
+
+        .s-bar.strong {
+            background: var(--teal)
+        }
+
+        .alert {
+            display: none;
+            padding: .75rem 1rem;
+            border-radius: var(--radius-sm);
+            font-size: .85rem;
+            margin-bottom: 1.2rem;
+            align-items: center;
+            gap: .5rem
+        }
+
+        .alert.error {
+            background: rgba(179, 86, 86, .1);
+            border: 1px solid rgba(179, 86, 86, .25);
+            color: var(--red)
+        }
+
+        .alert.success {
+            background: rgba(135, 182, 188, .1);
+            border: 1px solid rgba(135, 182, 188, .3);
+            color: var(--teal-dark)
+        }
+
+        .alert.show {
+            display: flex
+        }
+
+        .terms-wrap {
+            display: flex;
+            align-items: flex-start;
+            gap: .5rem;
+            margin-bottom: 1.4rem;
+            font-size: .82rem;
+            color: var(--text-muted);
+            cursor: pointer
+        }
+
+        .terms-wrap input[type="checkbox"] {
+            accent-color: var(--teal-dark);
+            margin-top: 2px;
+            flex-shrink: 0
+        }
+
+        .terms-wrap a {
+            color: var(--teal-dark);
+            font-weight: 600;
+            text-decoration: none
+        }
+
+        .terms-wrap a:hover {
+            text-decoration: underline
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: .9rem;
+            background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%);
+            color: white;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-family: var(--font);
+            font-weight: 800;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all .3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: .5rem;
+            box-shadow: 0 6px 20px rgba(135, 182, 188, .4);
+            margin-bottom: 1.4rem
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(135, 182, 188, .5)
+        }
+
+        .btn-submit:disabled {
+            opacity: .7;
+            transform: none;
+            cursor: not-allowed
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: .8rem;
+            margin-bottom: 1.2rem;
+            color: var(--text-muted);
+            font-size: .8rem
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border)
+        }
+
+        .switch-link {
+            text-align: center;
+            font-size: .87rem;
+            color: var(--text-muted)
+        }
+
+        .switch-link a {
+            color: var(--teal-dark);
+            font-weight: 700;
+            text-decoration: none
+        }
+
+        .switch-link a:hover {
+            text-decoration: underline
+        }
+
+        @media(max-width:768px) {
+            .auth-wrapper {
+                grid-template-columns: 1fr;
+                gap: 0
+            }
+
+            .auth-info {
+                display: none
+            }
+
+            main {
+                padding: 1.5rem 4%;
+                align-items: flex-start;
+                padding-top: 1.5rem
+            }
+
+            .auth-card {
+                padding: 1.8rem 1.5rem;
+                border-radius: var(--radius-md)
+            }
+        }
+
+        @media(max-width:400px) {
+            .auth-card {
+                padding: 1.4rem 1.1rem
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page-bg">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+    <nav>
+        <a href="/" class="nav-logo" aria-label="Feynman AI">
+            <img src="/static/favicon.ico" class="nav-logo-img" alt="Feynman AI" />
+            <span class="nav-logo-text">فاينمان <span>AI</span></span>
+        </a>
+        <div class="nav-right">
+            <button class="nav-meta-btn" id="themeBtn" onclick="toggleTheme()" aria-label="toggle theme">🌙</button>
+            <button class="nav-meta-btn" id="langBtn" onclick="toggleLang()" aria-label="switch language">EN</button>
+            <a href="/login" class="nav-login-link" id="navLoginLink">لديك حساب؟ سجّل دخولك</a>
+        </div>
+    </nav>
+    <main>
+        <div class="auth-wrapper">
+            <div class="auth-info">
+                <div class="auth-badge"><span class="badge-dot"></span><span data-i18n="joinFree">انضم مجاناً
+                        اليوم</span></div>
+                <h1><span data-i18n="infoTitle">ابدأ رحلة</span><br><span data-i18n="infoTitleSpan">الفهم العميق</span>
+                </h1>
+                <p data-i18n="infoP">أنشئ حسابك في ثوانٍ وابدأ باستخدام تقنية فاينمان الثورية لتتحوّل من حافظ إلى
+                    مُفهِم.</p>
+                <div class="steps-mini">
+                    <div class="step-mini">
+                        <div class="step-mini-num">١</div>
+                        <div class="step-mini-text"><strong data-i18n="s1title">أنشئ حسابك</strong><span
+                                data-i18n="s1sub">في أقل من دقيقة بدون بطاقة ائتمانية</span></div>
+                    </div>
+                    <div class="step-mini">
+                        <div class="step-mini-num">٢</div>
+                        <div class="step-mini-text"><strong data-i18n="s2title">اختر درسك</strong><span
+                                data-i18n="s2sub">أي مادة، أي موضوع — المنصة تتكيف معك</span></div>
+                    </div>
+                    <div class="step-mini">
+                        <div class="step-mini-num">٣</div>
+                        <div class="step-mini-text"><strong data-i18n="s3title">اشرح واحصل على تقييمك</strong><span
+                                data-i18n="s3sub">الذكاء الاصطناعي يحلل فهمك فوراً</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="auth-card">
+                <div class="card-header">
+                    <h2 data-i18n="formTitle">إنشاء حساب جديد</h2>
+                    <p data-i18n="formSub">أدخل بياناتك للبدء — مجاناً تماماً</p>
+                </div>
+                <div class="alert error" id="regAlert" role="alert"><span>⚠️</span><span id="alertMsg"
+                        data-i18n="alertErr">حدث خطأ، حاول مرة أخرى.</span></div>
+                <div class="alert success" id="regSuccess" role="alert"><span>✅</span><span data-i18n="alertSuccess">تم
+                        إنشاء حسابك بنجاح! جاري تحويلك...</span></div>
+                <form id="regForm" method="post" action="/register">
+                    <div class="form-group">
+                        <label class="form-label" for="fullname" data-i18n="labelName">الاسم الكامل</label>
+                        <div class="input-wrap">
+                            <span class="input-icon">🙋</span>
+                            <input class="form-input" type="text" id="fullname" name="fullname" data-i18n-ph="phName"
+                                placeholder="مثال: عبدالله محمد" autocomplete="name" required />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="username" data-i18n="labelUser">اسم المستخدم</label>
+                        <div class="input-wrap">
+                            <span class="input-icon">👤</span>
+                            <input class="form-input" type="text" id="username" name="username" data-i18n-ph="phUser"
+                                placeholder="مثال: abdullah2024" autocomplete="username" required minlength="3" />
+                        </div>
+                        <div class="field-hint" data-i18n="userHint">يجب أن يكون 3 أحرف على الأقل، بدون مسافات.</div>
+                        <div class="field-error" id="usernameError" data-i18n="userTaken">اسم المستخدم هذا مستخدم
+                            مسبقاً.</div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="password" data-i18n="labelPass">كلمة المرور</label>
+                        <div class="input-wrap">
+                            <span class="input-icon">🔒</span>
+                            <input class="form-input" type="password" id="password" name="password"
+                                data-i18n-ph="phPass" placeholder="8 أحرف على الأقل" autocomplete="new-password"
+                                required minlength="8" />
+                            <button type="button" class="input-toggle" id="togglePass">👁️</button>
+                        </div>
+                        <div class="strength-wrap" id="strengthWrap" style="display:none">
+                            <div class="strength-label"><span data-i18n="strength">قوة كلمة المرور</span><span
+                                    id="strengthText">—</span></div>
+                            <div class="strength-bars">
+                                <div class="s-bar" id="sb1"></div>
+                                <div class="s-bar" id="sb2"></div>
+                                <div class="s-bar" id="sb3"></div>
+                                <div class="s-bar" id="sb4"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <label class="terms-wrap">
+                        <input type="checkbox" id="terms" required />
+                        <span data-i18n="terms">أوافق على <a href="#">شروط الاستخدام</a> و<a href="#">سياسة
+                                الخصوصية</a></span>
+                    </label>
+                    <button type="submit" class="btn-submit" id="submitBtn">
+                        <span id="btnText" data-i18n="btnCreate">إنشاء الحساب</span><span id="btnArrow">←</span>
+                    </button>
+                </form>
+                <div class="divider"><span data-i18n="haveAccount">لديك حساب بالفعل؟</span></div>
+                <p class="switch-link"><a href="/login" data-i18n="loginNow">سجّل دخولك الآن</a></p>
+            </div>
+        </div>
+    </main>
+    <script>
+        const T = { ar: { pageTitle: 'إنشاء حساب — فاينمان AI', joinFree: 'انضم مجاناً اليوم', infoTitle: 'ابدأ رحلة', infoTitleSpan: 'الفهم العميق', infoP: 'أنشئ حسابك في ثوانٍ وابدأ باستخدام تقنية فاينمان الثورية لتتحوّل من حافظ إلى مُفهِم.', s1title: 'أنشئ حسابك', s1sub: 'في أقل من دقيقة بدون بطاقة ائتمانية', s2title: 'اختر درسك', s2sub: 'أي مادة، أي موضوع — المنصة تتكيف معك', s3title: 'اشرح واحصل على تقييمك', s3sub: 'الذكاء الاصطناعي يحلل فهمك فوراً', formTitle: 'إنشاء حساب جديد', formSub: 'أدخل بياناتك للبدء — مجاناً تماماً', alertErr: 'حدث خطأ، حاول مرة أخرى.', alertSuccess: 'تم إنشاء حسابك بنجاح! جاري تحويلك...', alertTaken: 'اسم المستخدم مستخدم مسبقاً، جرب اسماً آخر.', alertNet: 'حدث خطأ في الاتصال، حاول مرة أخرى.', labelName: 'الاسم الكامل', phName: 'مثال: عبدالله محمد', labelUser: 'اسم المستخدم', phUser: 'مثال: abdullah2024', userHint: 'يجب أن يكون 3 أحرف على الأقل، بدون مسافات.', userTaken: 'اسم المستخدم هذا مستخدم مسبقاً.', labelPass: 'كلمة المرور', phPass: '8 أحرف على الأقل', strength: 'قوة كلمة المرور', strengthLabels: ['', 'ضعيفة', 'ضعيفة', 'متوسطة', 'قوية'], terms: 'أوافق على <a href="#">شروط الاستخدام</a> و<a href="#">سياسة الخصوصية</a>', btnCreate: 'إنشاء الحساب', btnCreating: 'جاري الإنشاء...', haveAccount: 'لديك حساب بالفعل؟', loginNow: 'سجّل دخولك الآن', navLogin: 'لديك حساب؟ سجّل دخولك' }, en: { pageTitle: 'Create Account — Feynman AI', joinFree: 'Join for free today', infoTitle: 'Start your journey to', infoTitleSpan: 'deep understanding', infoP: 'Create your account in seconds and start using the revolutionary Feynman technique — transform from memorizing to truly understanding.', s1title: 'Create your account', s1sub: 'In under a minute, no credit card needed', s2title: 'Pick your lesson', s2sub: 'Any subject, any topic — the platform adapts', s3title: 'Explain & get feedback', s3sub: 'AI analyzes your understanding instantly', formTitle: 'Create Account', formSub: 'Enter your details — completely free', alertErr: 'An error occurred, please try again.', alertSuccess: 'Account created! Redirecting you to login...', alertTaken: 'Username already taken, please try another.', alertNet: 'Connection error, please try again.', labelName: 'Full Name', phName: 'e.g. John Smith', labelUser: 'Username', phUser: 'e.g. johnsmith2024', userHint: 'At least 3 characters, no spaces.', userTaken: 'This username is already taken.', labelPass: 'Password', phPass: 'At least 8 characters', strength: 'Password strength', strengthLabels: ['', 'Weak', 'Weak', 'Medium', 'Strong'], terms: 'I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>', btnCreate: 'Create Account', btnCreating: 'Creating...', haveAccount: 'Already have an account?', loginNow: 'Sign in now', navLogin: 'Have an account? Sign in' } };
+        let lang = localStorage.getItem('fynLang') || 'ar';
+        let theme = localStorage.getItem('fynTheme') || 'light';
+        function applyLang(l) { lang = l; localStorage.setItem('fynLang', l); const isAr = l === 'ar'; document.documentElement.lang = l; document.documentElement.dir = isAr ? 'rtl' : 'ltr'; document.title = T[l].pageTitle; document.getElementById('langBtn').textContent = isAr ? 'EN' : 'عر'; document.getElementById('navLoginLink').textContent = T[l].navLogin; document.getElementById('btnArrow').textContent = isAr ? '←' : '→'; document.querySelectorAll('[data-i18n]').forEach(el => { const k = el.dataset.i18n; if (T[l][k] !== undefined) el.innerHTML = T[l][k]; }); document.querySelectorAll('[data-i18n-ph]').forEach(el => { const k = el.dataset.i18nPh; if (T[l][k] !== undefined) el.placeholder = T[l][k]; }); const sw = document.getElementById('strengthText'); if (sw && T[l].strengthLabels) { const sc = parseInt(sw.dataset.score || '0'); sw.textContent = T[l].strengthLabels[sc] || '—'; } }
+        function applyTheme(t) { theme = t; localStorage.setItem('fynTheme', t); document.documentElement.setAttribute('data-theme', t); document.getElementById('themeBtn').textContent = t === 'dark' ? '☀️' : '🌙'; }
+        function toggleLang() { applyLang(lang === 'ar' ? 'en' : 'ar'); }
+        function toggleTheme() { applyTheme(theme === 'dark' ? 'light' : 'dark'); }
+        applyLang(lang); applyTheme(theme);
+        // Password toggle
+        document.getElementById('togglePass').addEventListener('click', () => { const p = document.getElementById('password'); const isP = p.type === 'password'; p.type = isP ? 'text' : 'password'; document.getElementById('togglePass').textContent = isP ? '🙈' : '👁️'; });
+        // Password strength
+        const strengthWrap = document.getElementById('strengthWrap');
+        const strengthText = document.getElementById('strengthText');
+        const bars = [document.getElementById('sb1'), document.getElementById('sb2'), document.getElementById('sb3'), document.getElementById('sb4')];
+        document.getElementById('password').addEventListener('input', () => { const val = document.getElementById('password').value; if (!val) { strengthWrap.style.display = 'none'; return; } strengthWrap.style.display = 'block'; let score = 0; if (val.length >= 8) score++; if (/[A-Z]/.test(val) || /[\u0600-\u06FF]/.test(val)) score++; if (/[0-9]/.test(val)) score++; if (/[^a-zA-Z0-9\u0600-\u06FF]/.test(val)) score++; const levels = ['', 'weak', 'weak', 'medium', 'strong']; strengthText.dataset.score = score; strengthText.textContent = T[lang].strengthLabels[score] || '—'; bars.forEach((b, i) => { b.className = 's-bar'; if (i < score) b.classList.add(levels[score]); }); });
+        // Form submit
+        const form = document.getElementById('regForm');
+        const alertEl = document.getElementById('regAlert');
+        const successEl = document.getElementById('regSuccess');
+        const submitBtn = document.getElementById('submitBtn');
+        const alertMsg = document.getElementById('alertMsg');
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const un = document.getElementById('username').value.trim();
+            if (un.includes(' ')) { document.getElementById('username').classList.add('error'); return; }
+            document.getElementById('btnText').textContent = T[lang].btnCreating; submitBtn.disabled = true;
+            const data = new FormData(form);
+            try {
+                const res = await fetch('/register', { method: 'POST', body: data });
+                if (res.ok) { successEl.classList.add('show'); alertEl.classList.remove('show'); document.getElementById('btnText').textContent = '✅'; setTimeout(() => { window.location.href = '/login'; }, 1500); }
+                else { alertMsg.innerHTML = T[lang].alertTaken; alertEl.classList.add('show'); document.getElementById('btnText').textContent = T[lang].btnCreate; submitBtn.disabled = false; }
+            } catch { alertMsg.innerHTML = T[lang].alertNet; alertEl.classList.add('show'); document.getElementById('btnText').textContent = T[lang].btnCreate; submitBtn.disabled = false; }
+        });
+        document.getElementById('username').addEventListener('input', (e) => { e.target.classList.remove('error'); alertEl.classList.remove('show'); });
+    </script>
+</body>
+
+</html>

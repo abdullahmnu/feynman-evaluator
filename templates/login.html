@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>تسجيل الدخول — فاينمان AI</title>
+    <meta name="description" content="سجّل دخولك إلى منصة فاينمان AI وابدأ رحلة الفهم العميق." />
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+        *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+        :root{
+            --teal:#87B6BC;--mint:#BED4CB;--yellow:#F6F09F;--red:#B35656;
+            --teal-dark:#5a9298;--teal-light:#c4dde1;
+            --bg:#f7faf9;--surface:#ffffff;--surface2:#f0f6f5;
+            --text:#1a2e2c;--text-muted:#5a7270;--border:#d4e6e2;
+            --shadow-md:0 8px 32px rgba(135,182,188,.18);
+            --shadow-lg:0 20px 60px rgba(135,182,188,.22);
+            --radius-sm:12px;--radius-md:20px;--radius-lg:32px;
+            --font:'Cairo','Inter',sans-serif;
+        }
+        [data-theme="dark"]{
+            --bg:#0f1a19;--surface:#1a2e2c;--surface2:#1f3533;
+            --text:#e8f4f2;--text-muted:#8ab5b1;--border:#2d4a47;
+            --shadow-md:0 8px 32px rgba(0,0,0,.35);
+            --shadow-lg:0 20px 60px rgba(0,0,0,.45);
+        }
+        html{scroll-behavior:smooth}
+        body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column;transition:background .3s,color .3s}
+        .page-bg{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+        .blob{position:absolute;border-radius:50%;filter:blur(90px);opacity:.25}
+        .blob-1{width:500px;height:500px;background:var(--teal);top:-150px;right:-100px}
+        .blob-2{width:400px;height:400px;background:var(--yellow);bottom:-100px;left:-100px}
+        .blob-3{width:250px;height:250px;background:var(--mint);top:50%;left:50%;transform:translate(-50%,-50%)}
+        nav{position:relative;z-index:10;display:flex;align-items:center;justify-content:space-between;padding:1rem 5%;background:rgba(247,250,249,.85);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);transition:background .3s}
+        [data-theme="dark"] nav{background:rgba(15,26,25,.9)}
+        .nav-logo{display:flex;align-items:center;gap:.6rem;text-decoration:none}
+        .nav-logo-img{width:36px;height:36px;border-radius:10px;object-fit:contain;background:linear-gradient(135deg,var(--teal),var(--teal-dark));padding:3px;box-shadow:0 4px 12px rgba(135,182,188,.35)}
+        .nav-logo-text{font-size:1.15rem;font-weight:800;color:var(--text)}
+        .nav-logo-text span{color:var(--teal-dark)}
+        .nav-right{display:flex;align-items:center;gap:.6rem}
+        .nav-meta-btn{height:34px;padding:0 .75rem;border:1px solid var(--border);background:var(--surface2);border-radius:9px;font-family:var(--font);font-size:.8rem;font-weight:700;color:var(--text);cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:.3rem}
+        .nav-meta-btn:hover{background:var(--teal);color:white;border-color:var(--teal)}
+        .nav-register-link{font-size:.85rem;color:var(--teal-dark);font-weight:700;text-decoration:none;padding:.4rem .8rem;border-radius:8px;transition:background .2s}
+        .nav-register-link:hover{background:rgba(135,182,188,.1)}
+        main{flex:1;position:relative;z-index:1;display:flex;align-items:center;justify-content:center;padding:2.5rem 5%}
+        .auth-wrapper{display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:center;max-width:960px;width:100%}
+        .auth-info{padding:1rem 0}
+        .auth-badge{display:inline-flex;align-items:center;gap:.45rem;background:rgba(135,182,188,.12);border:1px solid rgba(135,182,188,.3);border-radius:999px;padding:.35rem .9rem;font-size:.8rem;font-weight:700;color:var(--teal-dark);margin-bottom:1.4rem}
+        .badge-dot{width:7px;height:7px;background:var(--teal);border-radius:50%;animation:pulse 2s infinite}
+        @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.5)}}
+        .auth-info h1{font-size:clamp(1.8rem,3vw,2.5rem);font-weight:900;line-height:1.25;margin-bottom:.8rem}
+        .auth-info h1 span{background:linear-gradient(135deg,var(--teal-dark),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+        .auth-info p{color:var(--text-muted);font-size:.97rem;line-height:1.75;margin-bottom:1.8rem}
+        .info-points{display:flex;flex-direction:column;gap:.8rem}
+        .info-point{display:flex;align-items:center;gap:.75rem;font-size:.88rem;color:var(--text-muted)}
+        .info-point-icon{width:32px;height:32px;flex-shrink:0;background:rgba(135,182,188,.12);border:1px solid rgba(135,182,188,.2);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.95rem}
+        .auth-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:2.4rem;box-shadow:var(--shadow-lg);position:relative;overflow:hidden;transition:background .3s,border-color .3s}
+        .auth-card::before{content:'';position:absolute;top:0;right:0;left:0;height:4px;background:linear-gradient(90deg,var(--teal),var(--mint),var(--teal-dark))}
+        .card-header{margin-bottom:1.8rem}
+        .card-header h2{font-size:1.4rem;font-weight:900;margin-bottom:.3rem}
+        .card-header p{font-size:.87rem;color:var(--text-muted)}
+        .form-group{margin-bottom:1.2rem}
+        .form-label{display:block;font-size:.85rem;font-weight:700;color:var(--text);margin-bottom:.45rem}
+        .input-wrap{position:relative;display:flex;align-items:center}
+        .input-icon{position:absolute;right:.9rem;font-size:1rem;color:var(--text-muted);pointer-events:none}
+        [dir="ltr"] .input-icon{right:auto;left:.9rem}
+        .form-input{width:100%;padding:.78rem 2.6rem .78rem 1rem;background:var(--surface2);border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:var(--font);font-size:.9rem;color:var(--text);transition:all .25s;outline:none}
+        [dir="ltr"] .form-input{padding:.78rem 1rem .78rem 2.6rem}
+        .form-input:focus{border-color:var(--teal);background:var(--surface);box-shadow:0 0 0 3px rgba(135,182,188,.15)}
+        .form-input::placeholder{color:#9bbab8}
+        .input-toggle{position:absolute;left:.9rem;background:none;border:none;cursor:pointer;color:var(--text-muted);font-size:.85rem;padding:2px;transition:color .2s}
+        [dir="ltr"] .input-toggle{left:auto;right:.9rem}
+        .input-toggle:hover{color:var(--teal-dark)}
+        .form-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem}
+        .remember-wrap{display:flex;align-items:center;gap:.45rem;cursor:pointer}
+        .remember-wrap input[type="checkbox"]{width:16px;height:16px;accent-color:var(--teal-dark);cursor:pointer}
+        .remember-wrap span{font-size:.82rem;color:var(--text-muted)}
+        .forgot-link{font-size:.82rem;color:var(--teal-dark);text-decoration:none;font-weight:600}
+        .forgot-link:hover{text-decoration:underline}
+        .btn-submit{width:100%;padding:.9rem;background:linear-gradient(135deg,var(--teal) 0%,var(--teal-dark) 100%);color:white;border:none;border-radius:var(--radius-sm);font-family:var(--font);font-weight:800;font-size:1rem;cursor:pointer;transition:all .3s;display:flex;align-items:center;justify-content:center;gap:.5rem;box-shadow:0 6px 20px rgba(135,182,188,.4);margin-bottom:1.4rem}
+        .btn-submit:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(135,182,188,.5)}
+        .btn-submit:disabled{opacity:.7;transform:none;cursor:not-allowed}
+        .alert{display:none;padding:.75rem 1rem;border-radius:var(--radius-sm);font-size:.85rem;margin-bottom:1.2rem;align-items:center;gap:.5rem}
+        .alert.error{background:rgba(179,86,86,.1);border:1px solid rgba(179,86,86,.25);color:var(--red)}
+        .alert.success{background:rgba(135,182,188,.1);border:1px solid rgba(135,182,188,.3);color:var(--teal-dark)}
+        .alert.show{display:flex}
+        .divider{display:flex;align-items:center;gap:.8rem;margin-bottom:1.2rem;color:var(--text-muted);font-size:.8rem}
+        .divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--border)}
+        .switch-link{text-align:center;font-size:.87rem;color:var(--text-muted)}
+        .switch-link a{color:var(--teal-dark);font-weight:700;text-decoration:none}
+        .switch-link a:hover{text-decoration:underline}
+        @media(max-width:768px){
+            .auth-wrapper{grid-template-columns:1fr;gap:0}
+            .auth-info{display:none}
+            main{padding:1.5rem 4%;align-items:flex-start;padding-top:2rem}
+            .auth-card{padding:1.8rem 1.5rem;border-radius:var(--radius-md)}
+        }
+        @media(max-width:400px){
+            .auth-card{padding:1.4rem 1.1rem}
+            .form-row{flex-direction:column;align-items:flex-start;gap:.6rem}
+        }
+    </style>
+</head>
+<body>
+    <div class="page-bg">
+        <div class="blob blob-1"></div><div class="blob blob-2"></div><div class="blob blob-3"></div>
+    </div>
+    <nav>
+        <a href="/" class="nav-logo" aria-label="Feynman AI">
+            <img src="/static/favicon.ico" class="nav-logo-img" alt="Feynman AI" />
+            <span class="nav-logo-text">فاينمان <span>AI</span></span>
+        </a>
+        <div class="nav-right">
+            <button class="nav-meta-btn" id="themeBtn" onclick="toggleTheme()" aria-label="toggle theme">🌙</button>
+            <button class="nav-meta-btn" id="langBtn" onclick="toggleLang()" aria-label="switch language">EN</button>
+            <a href="/register" class="nav-register-link" id="navRegLink">ليس لديك حساب؟ سجّل</a>
+        </div>
+    </nav>
+    <main>
+        <div class="auth-wrapper">
+            <div class="auth-info">
+                <div class="auth-badge"><span class="badge-dot"></span><span data-i18n="welcomeBack">مرحباً بعودتك</span></div>
+                <h1><span data-i18n="infoTitle">سجّل دخولك وافهم أعمق</span></h1>
+                <p data-i18n="infoP">منصتك التعليمية تنتظرك. اشرح، تعلّم، وطوّر فهمك يوماً بعد يوم بمساعدة الذكاء الاصطناعي.</p>
+                <div class="info-points">
+                    <div class="info-point"><div class="info-point-icon">⚡</div><span data-i18n="p1">تقييم فوري لشرحك</span></div>
+                    <div class="info-point"><div class="info-point-icon">🧠</div><span data-i18n="p2">أسئلة ذكية تُعمّق فهمك</span></div>
+                    <div class="info-point"><div class="info-point-icon">📈</div><span data-i18n="p3">تتبّع تقدّمك عبر الوقت</span></div>
+                </div>
+            </div>
+            <div class="auth-card">
+                <div class="card-header">
+                    <h2 data-i18n="formTitle">تسجيل الدخول</h2>
+                    <p data-i18n="formSub">أدخل بياناتك للمتابعة</p>
+                </div>
+                <div class="alert error" id="loginAlert" role="alert">
+                    <span>⚠️</span><span id="alertMsg" data-i18n="alertWrong">اسم المستخدم أو كلمة المرور غير صحيحة.</span>
+                </div>
+                <form id="loginForm" method="post" action="/login">
+                    <div class="form-group">
+                        <label class="form-label" for="username" data-i18n="labelUser">اسم المستخدم</label>
+                        <div class="input-wrap">
+                            <span class="input-icon">👤</span>
+                            <input class="form-input" type="text" id="username" name="username" data-i18n-ph="phUser" placeholder="أدخل اسم المستخدم" autocomplete="username" required />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="password" data-i18n="labelPass">كلمة المرور</label>
+                        <div class="input-wrap">
+                            <span class="input-icon">🔒</span>
+                            <input class="form-input" type="password" id="password" name="password" data-i18n-ph="phPass" placeholder="أدخل كلمة المرور" autocomplete="current-password" required />
+                            <button type="button" class="input-toggle" id="togglePass">👁️</button>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <label class="remember-wrap"><input type="checkbox" id="rememberMe" /><span data-i18n="remember">تذكّرني</span></label>
+                        <a href="#" class="forgot-link" data-i18n="forgotPass">نسيت كلمة المرور؟</a>
+                    </div>
+                    <button type="submit" class="btn-submit" id="submitBtn">
+                        <span id="btnText" data-i18n="btnLogin">دخول</span><span id="btnArrow">←</span>
+                    </button>
+                </form>
+                <div class="divider"><span data-i18n="orText">أو</span></div>
+                <p class="switch-link"><span data-i18n="noAccount">ليس لديك حساب؟</span> <a href="/register" data-i18n="registerNow">سجّل الآن مجاناً</a></p>
+            </div>
+        </div>
+    </main>
+    <script>
+    const T={ar:{pageTitle:'تسجيل الدخول — فاينمان AI',welcomeBack:'مرحباً بعودتك',infoTitle:'سجّل دخولك وافهم أعمق',infoP:'منصتك التعليمية تنتظرك. اشرح، تعلّم، وطوّر فهمك يوماً بعد يوم بمساعدة الذكاء الاصطناعي.',p1:'تقييم فوري لشرحك',p2:'أسئلة ذكية تُعمّق فهمك',p3:'تتبّع تقدّمك عبر الوقت',formTitle:'تسجيل الدخول',formSub:'أدخل بياناتك للمتابعة',alertWrong:'اسم المستخدم أو كلمة المرور غير صحيحة.',alertError:'حدث خطأ في الخادم، حاول لاحقاً.',alertNet:'تعذّر الوصول للخادم، تحقق من اتصالك.',labelUser:'اسم المستخدم',phUser:'أدخل اسم المستخدم',labelPass:'كلمة المرور',phPass:'أدخل كلمة المرور',remember:'تذكّرني',forgotPass:'نسيت كلمة المرور؟',btnLogin:'دخول',btnLogging:'جاري التحقق...',orText:'أو',noAccount:'ليس لديك حساب؟',registerNow:'سجّل الآن مجاناً',navReg:'ليس لديك حساب؟ سجّل'},en:{pageTitle:'Login — Feynman AI',welcomeBack:'Welcome back',infoTitle:'Sign in & understand deeper',infoP:'Your learning platform awaits. Explain, learn, and deepen your understanding daily with AI.',p1:'Instant explanation feedback',p2:'Smart questions to deepen understanding',p3:'Track your progress over time',formTitle:'Sign In',formSub:'Enter your credentials to continue',alertWrong:'Incorrect username or password.',alertError:'Server error, please try again later.',alertNet:'Cannot reach the server, check your connection.',labelUser:'Username',phUser:'Enter your username',labelPass:'Password',phPass:'Enter your password',remember:'Remember me',forgotPass:'Forgot password?',btnLogin:'Sign In',btnLogging:'Verifying...',orText:'or',noAccount:"Don't have an account?",registerNow:'Register for free',navReg:"No account? Register"}};
+    let lang=localStorage.getItem('fynLang')||'ar';
+    let theme=localStorage.getItem('fynTheme')||'light';
+    function applyLang(l){lang=l;localStorage.setItem('fynLang',l);const isAr=l==='ar';document.documentElement.lang=l;document.documentElement.dir=isAr?'rtl':'ltr';document.title=T[l].pageTitle;document.getElementById('langBtn').textContent=isAr?'EN':'عر';document.getElementById('navRegLink').textContent=T[l].navReg;document.getElementById('btnArrow').textContent=isAr?'←':'→';document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.dataset.i18n;if(T[l][k]!==undefined)el.textContent=T[l][k];});document.querySelectorAll('[data-i18n-ph]').forEach(el=>{const k=el.dataset.i18nPh;if(T[l][k]!==undefined)el.placeholder=T[l][k];});}
+    function applyTheme(t){theme=t;localStorage.setItem('fynTheme',t);document.documentElement.setAttribute('data-theme',t);document.getElementById('themeBtn').textContent=t==='dark'?'☀️':'🌙';}
+    function toggleLang(){applyLang(lang==='ar'?'en':'ar');}
+    function toggleTheme(){applyTheme(theme==='dark'?'light':'dark');}
+    applyLang(lang);applyTheme(theme);
+    // Password toggle
+    document.getElementById('togglePass').addEventListener('click',()=>{const p=document.getElementById('password');const isP=p.type==='password';p.type=isP?'text':'password';document.getElementById('togglePass').textContent=isP?'🙈':'👁️';});
+    // Login form
+    const alertBox=document.getElementById('loginAlert');
+    const alertMsg=document.getElementById('alertMsg');
+    const submitBtn=document.getElementById('submitBtn');
+    const form=document.getElementById('loginForm');
+    if(new URLSearchParams(window.location.search).get('fail')==='1')alertBox.classList.add('show');
+    form.addEventListener('submit',async(e)=>{
+        e.preventDefault();alertBox.classList.remove('show');
+        document.getElementById('btnText').textContent=T[lang].btnLogging;submitBtn.disabled=true;
+        const data=new FormData(form);
+        try{
+            const res=await fetch('/login',{method:'POST',body:data,redirect:'manual'});
+            if(res.type==='opaqueredirect'||res.status===303||res.redirected){window.location.href='/';return;}
+            if(res.ok){try{const json=await res.json();if(json.status==='fail'){alertMsg.textContent=T[lang].alertWrong;alertBox.classList.add('show');}else if(json.status==='success'){window.location.href='/';return;}}catch{window.location.href='/';return;}}
+            else{alertMsg.textContent=T[lang].alertError;alertBox.classList.add('show');}
+        }catch{alertMsg.textContent=T[lang].alertNet;alertBox.classList.add('show');}
+        document.getElementById('btnText').textContent=T[lang].btnLogin;submitBtn.disabled=false;
+    });
+    ['username','password'].forEach(id=>{document.getElementById(id).addEventListener('input',()=>alertBox.classList.remove('show'));});
+    </script>
+</body>
+</html>
