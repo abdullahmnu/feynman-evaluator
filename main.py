@@ -1,4 +1,4 @@
-from models import User,Conversation,Message,airesponse,ai_response_with_history
+from fynmanAi.models import User,Conversation,Message,airesponse,ai_response_with_history
 from security import get_password_hash, verify_password
 from fastapi import FastAPI ,Request , Form ,Depends
 from sqlmodel import SQLModel, Field, create_engine, Session, select
@@ -13,9 +13,15 @@ app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
 SECRET_KEY = os.getenv("SECRET_KEY")
 templates= Jinja2Templates(directory='templates')
-engine = create_engine("sqlite:///database.db", echo=True) 
-SQLModel.metadata.create_all(engine)
+DATABASE_URL = os.getenv("DATABASE_URL")
 
+if DATABASE_URL is None:
+    DATABASE_URL = "sqlite:///database.db"
+else:
+    if DATABASE_URL.startswith("postgres://"):
+        DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
+
+engine = create_engine(DATABASE_URL)
 app.add_middleware(
     SessionMiddleware,
     secret_key=SECRET_KEY,
