@@ -45,13 +45,15 @@ The system converts the ongoing chat history into an interactive conversational 
     Bash
 
     uvicorn main:app --reload
+   
 
-📝 Notes & Credits
+## 📝 Notes & Credits
 
 This project focuses on providing a clean, distraction-free, and simple UI for students. AI integration is utilized to ensure a highly interactive and practical learning experience.
 
 Developed by: [abdullahmnu]
-📄 License
+
+#📄 License
 
 MIT License
 
