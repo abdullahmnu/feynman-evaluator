@@ -36,7 +36,6 @@ The system converts the ongoing chat history into an interactive conversational 
     pip install -r requirements.txt
 
     Configure your environment variables (Create a .env file):
-    مقتطف الرمز
 
     API_KEY=your_api_key_here
     SECRET_KEY=your_secret_key_here
@@ -53,7 +52,7 @@ This project focuses on providing a clean, distraction-free, and simple UI for s
 
 Developed by: [abdullahmnu]
 
-#📄 License
+# 📄 License
 
 MIT License
 
