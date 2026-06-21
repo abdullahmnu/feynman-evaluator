@@ -1,4 +1,4 @@
-eynman Evaluator
+# eynman Evaluator
 
 An application designed to help students master academic concepts using the **Feynman Technique**. Users explain a concept in their own words, and the AI evaluates their explanation, identifies knowledge gaps, and provides feedback to simplify the information.
 
